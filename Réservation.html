@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>GO FAST</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS.css">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <header class="header2">
+
+
+    <div class="tm-top-header">
+      <div class="container">
+        <div class="row">
+          <div class="tm-top-header-inner">
+            <div class="tm-logo-container">
+              <img src="images/LOGOO.png" alt="Logo" class="tm-site-logo">
+
+            </div>
+            <div class="mobile-menu-icon">
+              <i class="fa fa-bars"></i>
+            </div>
+            <nav class="tm-nav">
+              <ul>
+                <li><a href="Accueil.html">Accueil</a></li>
+                <li><a href="Gallerie.html">Gallerie</a></li>
+                <li><a class="active" href="Réservation.html">Réservation</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </header>
+
+  <script>
+    var subjectObject = {
+      "Motos": {
+        "Electrique": [],
+        "Essence": []
+      },
+      "Citadine": {
+        "Electrique": ["Manuelle"],
+        "hybride": ["Manuelle"],
+        "Essence": ["Manuelle"],
+        "Diesel": ["Manuelle"]
+      },
+      "Compact": {
+        "hybride": ["Manuelle"],
+        "Essence": ["Manuelle"],
+        "Diesel": ["Manuelle"]
+      },
+      "Berline": {
+        "hybride": ["Automatique"],
+        "Essence": ["Automatique"],
+        "Diesel": ["Automatique"]
+      },
+      "Utilitaire": {
+        "Diesel": ["Manuelle"]
+      },
+      "Engin de Chantier": {
+        "Essence": ["Manuelle"],
+        "Diesel": ["Manuelle"]
+      },
+      "Camion": {
+        "Diesel": ["Automatique"]
+
+      }
+    }
+    window.onload = function () {
+      var type_du_véhicule = document.getElementById("tv");
+      var carburant = document.getElementById("Carburant");
+      var boite_à_vitessel = document.getElementById("bv");
+      for (var x in subjectObject) {
+        type_du_véhicule.options[type_du_véhicule.options.length] = new Option(x, x);
+      }
+      type_du_véhicule.onchange = function () {
+        //vider bvs- et Carburants- 
+        boite_à_vitessel.length = 0;
+        carburant.length = 0;
+
+        for (var y in subjectObject[this.value]) {
+          carburant.options[carburant.options.length] = new Option(y, y);
+        }
+      }
+      carburant.onchange = function () {
+        //vider bvs 
+        boite_à_vitessel.length = 0;
+        //display correct values
+        // for (var y in subjectObject[type_du_véhicule.value][this.value]) {
+        var z = subjectObject[type_du_véhicule.value][this.value];
+        for (var i = 0; i < z.length; i++) {
+
+          boite_à_vitessel.options[boite_à_vitessel.options.length] = new Option(z[i], z[i]);
+        }
+      }
+    }
+    function Calcule() {
+      var total = 0;
+      var nbrjour = document.getElementById("nbrjours").value;
+      var typevehicule = document.getElementById("tv").value;
+      var carburant = document.getElementById("Carburant").value;
+      var bv = document.getElementById("bv").value;
+      switch (typevehicule) {
+        case "Motos":
+          if (carburant == "Essence") {
+            total = nbrjour * (1.14 + 10);
+            break;
+          }
+          else {
+            total = nbrjour * (0.05 + 10);
+            break;
+          }
+        case "Citadine":
+          {
+            if (carburant == "Electrique") {
+              total = nbrjour * (5 / 100 * 12 + 12);
+              break;
+            }
+            else if (carburant == "hybride") {
+              total = nbrjour * (9 / 100 * 12 + 12);
+              break;
+            }
+            else if (carburant == "Essence") {
+              total = nbrjour * (14 / 100 * 12 + 12);
+              break;
+            }
+            else {
+              total = nbrjour * (21 / 100 * 12 + 12);
+              break;
+            }
+          }
+
+        case "Compact":
+          {
+
+            if (carburant == "hybride") {
+              total = nbrjour * (9 / 100 * 14 + 14);
+              break;
+            }
+            else if (carburant == "Essence") {
+              total = nbrjour * (14 / 100 * 14 + 14);
+              break;
+            }
+            else {
+              total = nbrjour * (21 / 100 * 14 + 14);
+              break;
+            }
+          }
+
+        case "Berline":
+          {
+
+            if (carburant == "hybride") {
+              total = nbrjour * (9 / 100 * 20 + 20);
+              break;
+            }
+            else if (carburant == "Essence") {
+              total = nbrjour * (14 / 100 * 20 + 20);
+              break;
+            }
+            else {
+              total = nbrjour * (21 / 100 * 20 * +20);
+              break;
+            }
+          }
+        case "Utilitaire":
+          {
+
+            if (carburant == "hybride") {
+              total = nbrjour * (21 / 100 * 16 + 16);
+              break;
+            }
+          }
+        case "Engin de Chantier":
+          {
+
+            if (carburant == "Essence") {
+              total = nbrjour * (14 / 100 * 900 + 900);
+              break;
+            }
+            else {
+              total = nbrjour * (21 / 100 * 900 + 900);
+              break;
+            }
+          }
+        case "Camion":
+          {
+
+            total = nbrjour * (21 / 100 * 250 + 250);
+            break;
+
+          }
+        default: document.getElementById("Erreur").innerHTML = "Erreur de saisie essayer une aytre fois";
+      }
+      if (total > 0) {
+        document.getElementById("Erreur").innerHTML = "";
+        document.getElementById("res").innerHTML = "Reservation passe avec succes !! le total :" + total + "$";
+      }
+    }
+  </script>
+
+  <body>
+
+    <div class="containerc">
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <center>
+        <h1>Réservez Dès Maintenant </h1>
+      </center>
+
+
+      <form>
+        <div class="row">
+          <div class="label_column">
+            <label for="fname">type du véhicule :</label>
+          </div>
+          <div class="input_column">
+            <select name="type_du_véhicule" id="tv">
+              <option value="" selected="selected">Selectionner le type du vehicule </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label_column">
+            <label for="carburant">carburant :</label>
+          </div>
+          <div class="input_column">
+            <select name="Carburant" id="Carburant">
+
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label_column">
+            <label for="carburant">Boite a vitesse :</label>
+          </div>
+          <div class="input_column">
+            <select name="bv" id="bv">
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label_column">
+            <label for="nbrjour">Nombre de jours :</label>
+          </div>
+          <div class="input_column">
+            <input type="number" name="nbrjour" id="nbrjours" min="1" value="1">
+          </div>
+        </div>
+        <div class="blank"></div>
+
+        <input type="button" value="Reserver" id="Envoyer" onclick="Calcule()">
+
+      </form>
+      <p id="Erreur" style="color:rgb(255, 0, 0)"></p>
+      <p id="res" style="color:rgb(39, 230, 188)"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <footer class="footer-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-md-3 item">
+              <h3>About</h3>
+              <p>Company</p>
+              <p>Team</p>
+              <p>Careers</p>
+
+            </div>
+            <div class="col-sm-6 col-md-3 item">
+              <h3>Services</h3>
+              <p>Web design</p>
+              <p>Development</p>
+              <p>Hosting</p>
+
+
+            </div>
+            <div class="col-md-6 item text">
+              <h3>GOFAST</h3>
+              <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus
+                elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+            </div>
+            <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                  class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a
+                href="#"><i class="icon ion-social-instagram"></i></a></div>
+          </div>
+          <p class="copyright">GOFAST © 2021</p>
+        </div>
+      </footer>
+
+      <!-- JS -->
+      <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> <!-- jQuery -->
+      <script type="text/javascript" src="js/templatemo-script.js"></script> <!-- Templatemo Script -->
+  </body>
+
+</html>
